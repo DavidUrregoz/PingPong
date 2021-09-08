@@ -30,7 +30,7 @@
         this.board=board;
         this.board.bars.push(this);  /// agregar al arreglo las barra
         this.kind = "rectangle";
-        this.speed=10; //Velocidad de las barras
+        this.speed=15; //Velocidad de las barras
     }
 
     self.Bar.prototype = {
@@ -56,6 +56,11 @@
     }
 
     self.BoardView.prototype ={
+
+        clean: function(){
+            this.ctx.clearRect(0,0,this.board.width,this.board.height);
+        },
+
         draw: function(){
             for (var i=this.board.elements.length-1; i>=0;i--){
                 var el= this.board.elements[i];
@@ -100,6 +105,8 @@ document.addEventListener("keydown",function(ev){ //Lectura de teclado por codig
 window.requestAnimationFrame(controller);
 
 function controller(){
+    boar_view.clean();
     boar_view.draw();
+    
     window.requestAnimationFrame(controller);
 }
