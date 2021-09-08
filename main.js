@@ -1,4 +1,3 @@
-
 //Funcion anonima
 (function(){
     self.Board=function(width,height){
@@ -13,10 +12,12 @@
     self.Board.prototype = { //Retorna las barras y la pelota
         get elements(){
             var elements=this.bars;
-            elements.push(this.ball);
+            //elements.push(this.ball);
             return elements;
         }
     }
+
+    //Nueva linea para el merge
 
 })();
 
@@ -29,12 +30,18 @@
         this.board=board;
         this.board.bars.push(this);  /// agregar al arreglo las barra
         this.kind = "rectangle";
+        this.speed=10; //Velocidad de las barras
     }
 
     self.Bar.prototype = {
         down: function(){
+            this.y += this.speed;
         },
         up: function(){
+            this.y -= this.speed;
+        },
+        toString: function(){
+            return "x: " + this.x + "y: " + this.y;
         }
     }
 })();
@@ -58,24 +65,41 @@
     }
 
     function draw(ctx,element){
-        if(element !== null && element.hasOwnProperty("kind")){
-            switch(element.kind){
-                case "rectangle":
+       switch(element.kind){
+            case "rectangle":
                 ctx.fillRect(element.x,element.y,element.width,element.height);
                 break;
-            }
-        }
-        
+        }  
     }
 })();
 
-window.addEventListener("load",main);
 
-function main(){
-    var board = new Board(800,400);
-    var bar1 = new Bar(40,100,20,100,board);
-    var bar2 = new Bar(740,100,20,100,board);
-    var canvas = document.getElementById('canvas');
-    var boar_view = new BoardView(canvas,board);
+var board = new Board(800,400);
+var bar1 = new Bar(40,100,20,100,board);
+var bar2 = new Bar(740,100,20,100,board);
+var canvas = document.getElementById('canvas');
+var boar_view = new BoardView(canvas,board);
+
+
+document.addEventListener("keydown",function(ev){ //Lectura de teclado por codigo
+    ev.preventDefault();
+    if(ev.keyCode==38){
+        bar2.up();
+    }else if(ev.keyCode==40){
+        bar2.down();
+    }else if(ev.keyCode==87){
+        bar1.up();
+    }else if(ev.keyCode==83){
+        bar1.down();
+    }
+    console.log(bar1.toString());
+    
+});
+
+///setInterval(main,200); //forma antigua
+window.requestAnimationFrame(controller);
+
+function controller(){
     boar_view.draw();
+    window.requestAnimationFrame(controller);
 }
