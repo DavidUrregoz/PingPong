@@ -7,13 +7,12 @@
         this.game_over = false;
         this.bars=[];
         this.ball=null;
-        this.playing= false;
     }
 
     self.Board.prototype = { //Retorna las barras y la pelota
         get elements(){
-            var elements=this.bars.map(function(bar){return bar; });
-            elements.push(this.ball);
+            var elements=this.bars;
+            //elements.push(this.ball);
             return elements;
         }
     }
@@ -22,7 +21,7 @@
 
 })();
 
-(function(){
+(function(){ 
     self.Marcador=function(){
         this.puntosBarraIzquierda=0;
         this.puntosBarraDerecha=0;
@@ -101,7 +100,7 @@
         this.board=board;
         this.board.bars.push(this);  /// agregar al arreglo las barra
         this.kind = "rectangle";
-        this.speed=15; //Velocidad de las barras
+        this.speed=10; //Velocidad de las barras
     }
 
     self.Bar.prototype = {
@@ -131,11 +130,6 @@
     }
 
     self.BoardView.prototype ={
-
-        clean: function(){
-            this.ctx.clearRect(0,0,this.board.width,this.board.height);
-        },
-
         draw: function(){
             for (var i=this.board.elements.length-1; i>=0;i--){
                 var el= this.board.elements[i];
@@ -216,6 +210,7 @@
                     element.directiony = element.directiony*-1;
                 }
                 break  
+
         }  
     }
 })();
@@ -231,44 +226,37 @@ let ram=Math.random()*2-1;
 
 var board = new Board(800,400);
 
-
 var bar1 = new Bar(40,150,20,100,board);
 var bar2 = new Bar(740,150,20,100,board);
 // var bar3 = new Bar(2,0,796,5,board);
 // var bar4 = new Bar(2,395,796,5,board);
 
 var marcador = new Marcador();
+
 var canvas = document.getElementById('canvas');
 var boar_view = new BoardView(canvas,board);
-var ball = new Ball(380,170,15,board);
+
 
 
 document.addEventListener("keydown",function(ev){ //Lectura de teclado por codigo   
+
     if(ev.keyCode==38){
-        ev.preventDefault();
         bar2.up();
-    }else if(ev.keyCode===40){
-        ev.preventDefault();
+    }else if(ev.keyCode==40){
         bar2.down();
-    }else if(ev.keyCode===87){
-        ev.preventDefault();
+    }else if(ev.keyCode==87){
         bar1.up();
-    }else if(ev.keyCode===83){
-        ev.preventDefault();
+    }else if(ev.keyCode==83){
         bar1.down();
-    }else if(ev.keyCode===32){
-        ev.preventDefault();
-        board.playing = !board.playing; //Pausa con espacio
     }
     console.log(bar1.toString());
     
 });
 
 ///setInterval(main,200); //forma antigua
-boar_view.draw();
 window.requestAnimationFrame(controller);
 
-function controller(){ 
-    boar_view.play();
+function controller(){
+    boar_view.draw();
     window.requestAnimationFrame(controller);
 }
