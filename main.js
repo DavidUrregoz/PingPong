@@ -31,19 +31,19 @@
     self.Marcador.prototype = {
         puntoDerecha: function(){
             this.puntosBarraDerecha+=1;
-            alert("El marcador va: "+ this.puntosBarraIzquierda +" a "+this.puntosBarraDerecha);
-            if(this.puntosBarraIzquierda >= 10){
-                alert("El jugador de la Izquierda ah ganado");
+            alert("EL MARCADOR ES\nDERECHA: "+ this.puntosBarraIzquierda +
+            "            IZQUIERDA: "+this.puntosBarraDerecha);
+            if(this.puntosBarraDerecha >= 3){
+                alert("EL JUGADOR DE LA DERECHA HA GANADO ...!!");
             }
         },
         puntosIzquierda: function(){
             this.puntosBarraIzquierda+=1;
             alert("El marcador va: "+this.puntosBarraIzquierda +" a "+this.puntosBarraDerecha);
-            if(this.puntosBarraIzquierda >= 10){
-                alert("el jugador de la Derecha ah ganado");
+            if(this.puntosBarraIzquierda >= 3){
+                alert("EL JUGADOR DE LA IZQUERDA HA GANADO ...!!");
             }
-        }
-     
+        }     
     }
 })();
 
@@ -56,6 +56,7 @@
         this.speed_x = 3;
         this.board = board;
         this.direction = 1;//Sentido de movimiento
+        this.directiony = 1;
         this.bounce_angle = 0;
         this.max_bounce_angle= Math.PI/9;
         this.speed=3;
@@ -66,7 +67,7 @@
     self.Ball.prototype = {
         move: function(){
             this.x += (this.speed_x*this.direction);
-            this.y += (this.speed_y*this.direction );
+            this.y += (this.speed_y*this.direction*this.directiony);
         },
         get width(){
             return this.radius*2;
@@ -105,10 +106,14 @@
 
     self.Bar.prototype = {
         down: function(){
-            this.y += this.speed;
+            if(this.y <= 350){
+                this.y += this.speed;
+            }
         },
         up: function(){
-            this.y -= this.speed;
+            if(this.y >= -25){
+                this.y -= this.speed;
+            }
         },
         toString: function(){
             return "x: " + this.x + "y: " + this.y;
@@ -166,13 +171,13 @@
         hit = true;
     }
 
-  //Colisión de a con b
+    //Colisión de a con b
     if(b.x <= a.x && b.x + b.width >= a.x + a.width){
         if (b.y <= a.y && b.y + b.height >= a.y + a.height) 
             hit = true;
     }
 
-  //Colision b con a
+    //Colision b con a
     if(a.x <= b.x && a.x + a.width >= b.x + b.width){
         //Colisiona verticales
         if (a.y <= b.y && a.y + a.height >= b.y + b.height) 
@@ -205,10 +210,10 @@
                     board.playing = !board.playing;
                     element.direction = ramd();  
                 }
-                if(element.y <-10){
-
-                }else if(element.y > 410){
-
+                if(element.y <-1){
+                    element.directiony = element.directiony*-1;
+                }else if(element.y > 401){
+                    element.directiony = element.directiony*-1;
                 }
                 break  
         }  
