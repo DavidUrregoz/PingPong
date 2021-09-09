@@ -4,12 +4,31 @@
     <title>Ping Pong</title>
     <meta charset="utf-8">
     <style>
-        canvas{border:solid}
+        canvas{border:solid; color: blue}       
+        body {text-align: center}
+        
     </style>
 </head>
 <body>
     <h1> Ping pong por David U</h1>
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" ></canvas>
     <script src="main.js"></script>
+    <br><br>
+    <button onclick="bonton1()" style="width:160px;height:60px;">Jugar</button>
+    <br><br>
+    <button onclick="bonton2()">Ver instrucciones</button>
+    <script>
+        function bonton1(){
+            board.playing = !board.playing;
+        }
+        function bonton2(){
+            mensaje = "INSTRUCCIONES \n"+
+            "-> PRESIONA ESPACIO PARA PONER EN PAUSA \n"+
+            "-> PARA MOVER LA BARRA DE LA IZQUIEDA USA (W) Y (S) \n"+
+            "-> PARA MOVER LA BARRA DE LA DERECHA USA (FLECHA ARRIBA) Y (FLECHA ABAJO) /n";            
+            alert(mensaje);
+        }
+    </script>
+
 </body>
 </html>

@@ -22,6 +22,8 @@
 
 })();
 
+
+
 (function(){
     self.Ball = function(x,y,radius,board){
         this.x=x;
@@ -117,7 +119,6 @@
             for ( var i = this.board.bars.length - 1 ; i>=0; i--){
                 var bar = this.board.bars[i];
                 if(hit(bar,this.board.ball)){
-                    console.log("hp")
                     this.board.ball.collision(bar);
                 }
             };
@@ -176,13 +177,15 @@
 var board = new Board(800,400);
 var bar1 = new Bar(40,150,20,100,board);
 var bar2 = new Bar(740,150,20,100,board);
+var bar3 = new Bar(2,0,796,5,board);
+var bar4 = new Bar(2,395,796,5,board);
+
 var canvas = document.getElementById('canvas');
 var boar_view = new BoardView(canvas,board);
 var ball = new Ball(380,170,15,board);
 
 
-document.addEventListener("keydown",function(ev){ //Lectura de teclado por codigo
-    
+document.addEventListener("keydown",function(ev){ //Lectura de teclado por codigo   
     if(ev.keyCode==38){
         ev.preventDefault();
         bar2.up();
