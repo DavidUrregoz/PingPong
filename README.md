@@ -1,5 +1,5 @@
 # PingPong
-Hola Oscar, tuve algunos problemas con git 
+Hola Oscar, tuve algunos problemas con git, 
 debido a esto tuve que hacer algunas modificaciones 
 ya que avance bastante en la rama "colisiones" y a 
 la hora de hacer el merge me surgieron algunos problemas complejos.
