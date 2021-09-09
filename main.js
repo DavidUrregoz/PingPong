@@ -31,19 +31,19 @@
     self.Marcador.prototype = {
         puntoDerecha: function(){
             this.puntosBarraDerecha+=1;
-            alert("El marcador va: "+ this.puntosBarraIzquierda +" a "+this.puntosBarraDerecha);
-            if(this.puntosBarraIzquierda >= 10){
-                alert("El jugador de la Izquierda ah ganado");
+            alert("EL MARCADOR ES\nDERECHA: "+ this.puntosBarraIzquierda +
+            "            IZQUIERDA: "+this.puntosBarraDerecha);
+            if(this.puntosBarraDerecha >= 3){
+                alert("EL JUGADOR DE LA DERECHA HA GANADO ...!!");
             }
         },
         puntosIzquierda: function(){
             this.puntosBarraIzquierda+=1;
             alert("El marcador va: "+this.puntosBarraIzquierda +" a "+this.puntosBarraDerecha);
-            if(this.puntosBarraIzquierda >= 10){
-                alert("el jugador de la Derecha ah ganado");
+            if(this.puntosBarraIzquierda >= 3){
+                alert("EL JUGADOR DE LA IZQUERDA HA GANADO ...!!");
             }
-        }
-     
+        }     
     }
 })();
 
@@ -171,13 +171,13 @@
         hit = true;
     }
 
-  //Colisión de a con b
+    //Colisión de a con b
     if(b.x <= a.x && b.x + b.width >= a.x + a.width){
         if (b.y <= a.y && b.y + b.height >= a.y + a.height) 
             hit = true;
     }
 
-  //Colision b con a
+    //Colision b con a
     if(a.x <= b.x && a.x + a.width >= b.x + b.width){
         //Colisiona verticales
         if (a.y <= b.y && a.y + a.height >= b.y + b.height) 
