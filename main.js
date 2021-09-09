@@ -22,7 +22,30 @@
 
 })();
 
+(function(){
+    self.Marcador=function(){
+        this.puntosBarraIzquierda=0;
+        this.puntosBarraDerecha=0;
+    }
 
+    self.Marcador.prototype = {
+        puntoDerecha: function(){
+            this.puntosBarraDerecha+=1;
+            alert("El marcador va: "+ this.puntosBarraIzquierda +" a "+this.puntosBarraDerecha);
+            if(this.puntosBarraIzquierda >= 10){
+                alert("El jugador de la Izquierda ah ganado");
+            }
+        },
+        puntosIzquierda: function(){
+            this.puntosBarraIzquierda+=1;
+            alert("El marcador va: "+this.puntosBarraIzquierda +" a "+this.puntosBarraDerecha);
+            if(this.puntosBarraIzquierda >= 10){
+                alert("el jugador de la Derecha ah ganado");
+            }
+        }
+     
+    }
+})();
 
 (function(){
     self.Ball = function(x,y,radius,board){
@@ -34,7 +57,7 @@
         this.board = board;
         this.direction = 1;//Sentido de movimiento
         this.bounce_angle = 0;
-        this.max_bounce_angle= Math.PI/12;
+        this.max_bounce_angle= Math.PI/9;
         this.speed=3;
         
         board.ball = this;  
@@ -42,8 +65,8 @@
     }
     self.Ball.prototype = {
         move: function(){
-            this.x += (this.speed_x *this.direction);
-            this.y += (this.speed_y * this.direction );
+            this.x += (this.speed_x*this.direction);
+            this.y += (this.speed_y*this.direction );
         },
         get width(){
             return this.radius*2;
@@ -167,19 +190,49 @@
                 ctx.beginPath();
                 ctx.arc(element.x,element.y,element.radius,0,7);   
                 ctx.fill();
-                ctx.closePath();
+                ctx.closePath();               
+                if(element.x < -20 ){
+                    marcador.puntoDerecha();
+                    element.x = 380;
+                    element.y =170;
+                    board.playing = !board.playing;
+                    element.direction = ramd();
+
+                }else if(element.x > 820){
+                    marcador.puntosIzquierda();
+                    element.x = 380;
+                    element.y = 170;
+                    board.playing = !board.playing;
+                    element.direction = ramd();  
+                }
+                if(element.y <-10){
+
+                }else if(element.y > 410){
+
+                }
                 break  
         }  
     }
 })();
 
+function ramd(){
+let ram=Math.random()*2-1;
+    if(ram>0)
+        return 1;
+    else if(ram<0)
+        return-1;                   
+}
+
 
 var board = new Board(800,400);
+
+
 var bar1 = new Bar(40,150,20,100,board);
 var bar2 = new Bar(740,150,20,100,board);
-var bar3 = new Bar(2,0,796,5,board);
-var bar4 = new Bar(2,395,796,5,board);
+// var bar3 = new Bar(2,0,796,5,board);
+// var bar4 = new Bar(2,395,796,5,board);
 
+var marcador = new Marcador();
 var canvas = document.getElementById('canvas');
 var boar_view = new BoardView(canvas,board);
 var ball = new Ball(380,170,15,board);
