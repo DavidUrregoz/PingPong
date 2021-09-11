@@ -52,8 +52,8 @@
         this.x=x;
         this.y=y;
         this.radius = radius;
-        this.speed_y = 2;
-        this.speed_x = 5;
+        this.speed_y = 3;
+        this.speed_x = 9;
         this.board = board;
         this.direction = 1;//Sentido de movimiento
         this.directiony = 1;
